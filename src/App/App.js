@@ -33,6 +33,7 @@ class App extends Component {
   fetchNotes = () => {
     fetch("http://localhost:8000/api/notes")
       .then(res => res.json())
+
       .then(notes =>
         this.setState({
           notes
@@ -72,7 +73,7 @@ class App extends Component {
     const { notes, folders } = this.state;
     return (
       <>
-        {["/", "/folder/:folderId"].map(path => (
+        {["/", "/folders/:folderId"].map(path => (
           <Route
             exact
             key={path}
@@ -85,7 +86,7 @@ class App extends Component {
           />
         ))}
         <Route
-          path="/note/:noteId"
+          path="/notes/:noteId"
           render={routeProps => {
             const { noteId } = routeProps.match.params;
             const note = findNote(notes, noteId);
