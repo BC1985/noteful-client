@@ -30,6 +30,7 @@ export default class Note extends React.Component {
         >
           <FontAwesomeIcon icon="trash-alt" /> remove
         </button>
+        <div className="Note_content">{this.props.content}</div>
         <div className="Note__dates">
           <div className="Note__dates-modified">
             Modified{" "}
