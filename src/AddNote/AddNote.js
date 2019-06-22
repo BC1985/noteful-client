@@ -25,7 +25,7 @@ export default class AddNote extends Component {
       content: e.target.value
     });
   };
-  handleClick = e => {
+  handleClick = () => {
     this.setState({
       redirect: true
     });
@@ -87,7 +87,7 @@ export default class AddNote extends Component {
             </select>
           </div>
           <div className="buttons">
-            <button type="submit" onClick={this.handleClick}>
+            <button type="button" onClick={this.handleClick}>
               Add note
             </button>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddFolder.css";
+import { Redirect } from "react-router";
 
 export default class AddFolder extends Component {
   state = {
@@ -21,9 +22,16 @@ export default class AddFolder extends Component {
       headers: {
         "content-type": "application/json"
       }
-    }).then(res => console.log(res));
+    });
+    this.setState({
+      redirect: true
+    });
   };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/" />;
+    }
     console.log(this.state.name);
 
     return (
@@ -40,7 +48,9 @@ export default class AddFolder extends Component {
             />
           </div>
           <div className="buttons">
-            <button type="submit">Add folder</button>
+            <button type="submit" onClick={this.handleSubmit}>
+              Add folder
+            </button>
           </div>
         </NotefulForm>
       </section>
