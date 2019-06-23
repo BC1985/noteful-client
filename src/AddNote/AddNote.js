@@ -12,9 +12,14 @@ export default class AddNote extends Component {
     this.state = {
       name: "",
       content: "",
-      folder: ""
+      folderValue: ""
     };
   }
+
+  handleFolderSelect = e => {
+    this.setState({ folderValue: e.target.value });
+    console.log(this.state.folderValue);
+  };
   handleNameChange = e => {
     this.setState({
       name: e.target.value
@@ -25,12 +30,6 @@ export default class AddNote extends Component {
       content: e.target.value
     });
   };
-  handleClick = () => {
-    this.setState({
-      redirect: true
-    });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
     fetch("http://localhost:8000/api/notes", {
@@ -42,7 +41,10 @@ export default class AddNote extends Component {
       headers: {
         "content-type": "application/json"
       }
-    }).then(res => console.log(res));
+    });
+    this.setState({
+      redirect: true
+    });
   };
   render() {
     if (this.state.redirect) {
@@ -76,18 +78,19 @@ export default class AddNote extends Component {
             <label htmlFor="note-folder-select">Folder</label>
             <select
               id="note-folder-select"
-              // onChange={this.setState({})}
+              value={this.state.folderValue}
+              onChange={this.handleFolderSelect}
             >
               <option value={null}>...</option>
               {folders.map(folder => (
-                <option key={folder.id} value={folder.id}>
+                <option key={folder.id} value={folder.name}>
                   {folder.name}
                 </option>
               ))}
             </select>
           </div>
           <div className="buttons">
-            <button type="button" onClick={this.handleClick}>
+            <button type="submit" onClick={this.handleSubmit}>
               Add note
             </button>
           </div>
