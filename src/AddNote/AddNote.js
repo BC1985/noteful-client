@@ -12,13 +12,16 @@ export default class AddNote extends Component {
     this.state = {
       name: "",
       content: "",
-      folderValue: ""
+      folderValue: "",
+      folderId: ""
     };
   }
 
   handleFolderSelect = e => {
-    this.setState({ folderValue: e.target.value });
-    console.log(this.state.folderValue);
+    this.setState({
+      folderValue: e.target.value,
+      folderId: e.target.key
+    });
   };
   handleNameChange = e => {
     this.setState({
@@ -45,6 +48,7 @@ export default class AddNote extends Component {
     this.setState({
       redirect: true
     });
+    console.log(this.state);
   };
   render() {
     if (this.state.redirect) {
