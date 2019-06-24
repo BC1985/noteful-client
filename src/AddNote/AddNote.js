@@ -12,15 +12,13 @@ export default class AddNote extends Component {
     this.state = {
       name: "",
       content: "",
-      folderValue: "",
       folderId: ""
     };
   }
 
   handleFolderSelect = e => {
     this.setState({
-      folderValue: e.target.value,
-      folderId: e.target.key
+      folderId: e.target.value
     });
   };
   handleNameChange = e => {
@@ -39,7 +37,8 @@ export default class AddNote extends Component {
       method: "POST",
       body: JSON.stringify({
         note_name: this.state.name,
-        content: this.state.content
+        content: this.state.content,
+        folderId: this.state.folderId
       }),
       headers: {
         "content-type": "application/json"
@@ -87,7 +86,7 @@ export default class AddNote extends Component {
             >
               <option value={null}>...</option>
               {folders.map(folder => (
-                <option key={folder.id} value={folder.name}>
+                <option key={folder.id} value={folder.id}>
                   {folder.name}
                 </option>
               ))}
