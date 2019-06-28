@@ -3,18 +3,21 @@ import Note from "../Note/Note";
 import "./NotePageMain.css";
 
 export default function NotePageMain(props) {
+  console.log(props);
+
   return (
     <section className="NotePageMain">
       <Note
         id={props.note.id}
-        name={props.note.name}
-        modified={props.note.modified}
+        name={props.note.note_name}
+        content={props.note.content}
+        // modified={props.note.modified}
       />
-      <div className="NotePageMain__content">
+      {/* <div className="NotePageMain__content">
         {props.note.content.split(/\n \r|\n/).map((para, i) => (
           <p key={i}>{para}</p>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }
