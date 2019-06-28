@@ -1,23 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./Note.css";
 
 export default class Note extends React.Component {
-  handleDelete = e => {
+  constructor() {
+    super();
+    this.state = {
+      note_name: "",
+      content: ""
+    };
+  }
+  deleteNote = e => {
     let id = this.props.id;
-    console.log(id);
-
     e.preventDefault();
     fetch(`http://localhost:8000/api/notes/${id}`, {
       method: "DELETE"
     })
-      .then(res => console.log(res))
-      .catch(error => console.error(error));
+      .then(id => this.props.deleteNote(id))
+      .catch(error => console.error(error))
+      .then(
+        this.setState({
+          Redirect: true
+        })
+      );
   };
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/" />;
+    }
     return (
       <div className="Note">
         <h2 className="Note__title">
@@ -26,7 +39,7 @@ export default class Note extends React.Component {
         <button
           className="Note__delete"
           type="button"
-          onClick={this.handleDelete}
+          onClick={this.deleteNote}
         >
           <FontAwesomeIcon icon="trash-alt" /> remove
         </button>
