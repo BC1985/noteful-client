@@ -5,35 +5,65 @@ import Note from "../Note/Note";
 import CircleButton from "../CircleButton/CircleButton";
 import "./NoteListMain.css";
 
-export default function NoteListMain(props) {
-  return (
-    <section className="NoteListMain">
-      <ul>
-        {props.notes.map(note => (
-          <li key={note.id}>
-            <Note
-              id={note.id}
-              name={note.note_name}
-              modified={note.modified}
-              content={note.content}
-            />
-          </li>
-        ))}
-      </ul>
-      <div className="NoteListMain__button-container">
-        <CircleButton
-          tag={Link}
-          to="/add-note"
-          type="button"
-          className="NoteListMain__add-note-button"
-        >
-          <FontAwesomeIcon icon="plus" />
-          <br />
-          Note
-        </CircleButton>
-      </div>
-    </section>
-  );
+export default class NoteListMain extends React.Component {
+  deleteFolder = e => {
+    console.log(this.props);
+    this.props.history.goBack();
+
+    e.preventDefault();
+    const { folderId } = this.props.match.params;
+    fetch(`http://localhost:8000/api/folders/${folderId}`, {
+      method: "DELETE"
+    })
+      .then(res => console.log(res))
+      .then(() => {
+        this.props.deleteFolder(folderId);
+      })
+      .catch(error => console.error(error));
+  };
+
+  render() {
+    return (
+      <section className="NoteListMain">
+        <ul>
+          {this.props.notes.map(note => (
+            <li key={note.id}>
+              <Note
+                deleteNote={this.props.deleteNote}
+                id={note.id}
+                name={note.note_name}
+                // modified={note.modified}
+                content={note.content}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="NoteListMain__button-container">
+          <CircleButton
+            tag={Link}
+            to="/add-note"
+            type="button"
+            className="NoteListMain__add-note-button"
+          >
+            <FontAwesomeIcon icon="plus" />
+            <br />
+            Note
+          </CircleButton>
+        </div>
+        <div className="NoteListMain__button-container">
+          <CircleButton
+            type="button"
+            className="NoteListMain__delete-folder-button"
+            onClick={this.deleteFolder}
+          >
+            <FontAwesomeIcon icon="trash-alt" />
+            <br />
+            Delete folder
+          </CircleButton>
+        </div>
+      </section>
+    );
+  }
 }
 
 NoteListMain.defaultProps = {
