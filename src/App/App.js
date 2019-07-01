@@ -22,7 +22,7 @@ class App extends Component {
     this.fetchNotes();
   }
   fetchFolders = () => {
-    fetch("http://localhost:8000/api/folders")
+    fetch("https://tragically-keener-64149.herokuapp.com/")
       .then(res => res.json())
       .then(folders =>
         this.setState({
@@ -31,7 +31,7 @@ class App extends Component {
       );
   };
   fetchNotes = () => {
-    fetch("http://localhost:8000/api/notes")
+    fetch("https://tragically-keener-64149.herokuapp.com/")
       .then(res => res.json())
 
       .then(notes =>

@@ -1,3 +1,3 @@
 export default {
-  API_ENDPOINT: "https://rocky-wildwood-54051.herokuapp.com/"
+  API_ENDPOINT: "https://tragically-keener-64149.herokuapp.com/"
 };
