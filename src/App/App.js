@@ -10,6 +10,7 @@ import AddNote from "../AddNote/AddNote";
 // import dummyStore from '../dummy-store'
 import { getNotesForFolder, findNote, findFolder } from "../notes-helpers";
 import "./App.css";
+import config from "../../config";
 
 class App extends Component {
   state = {
@@ -22,7 +23,7 @@ class App extends Component {
     this.fetchNotes();
   }
   fetchFolders = () => {
-    fetch("https://tragically-keener-64149.herokuapp.com/")
+    fetch(`${config.API_ENDPOINT}/folders`)
       .then(res => res.json())
       .then(folders =>
         this.setState({
@@ -31,7 +32,7 @@ class App extends Component {
       );
   };
   fetchNotes = () => {
-    fetch("https://tragically-keener-64149.herokuapp.com/")
+    fetch(`${config.API_ENDPOINT}/notes`)
       .then(res => res.json())
 
       .then(notes =>

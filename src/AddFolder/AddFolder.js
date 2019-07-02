@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddFolder.css";
+import config from "../../config";
 
 export default class AddFolder extends Component {
   state = {
@@ -13,7 +14,7 @@ export default class AddFolder extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    fetch("http://localhost:8000/api/folders", {
+    fetch(`${config.API_ENDPOINT}/folders`, {
       method: "POST",
       body: JSON.stringify({
         name: this.state.name

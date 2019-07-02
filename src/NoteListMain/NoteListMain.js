@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Note from "../Note/Note";
 import CircleButton from "../CircleButton/CircleButton";
 import "./NoteListMain.css";
+import config from "../../config";
 
 export default class NoteListMain extends React.Component {
   deleteFolder = e => {
@@ -12,7 +13,7 @@ export default class NoteListMain extends React.Component {
 
     e.preventDefault();
     const { folderId } = this.props.match.params;
-    fetch(`http://localhost:8000/api/folders/${folderId}`, {
+    fetch(`${config.API_ENDPOINT}/folders/${folderId}`, {
       method: "DELETE"
     })
       .then(res => console.log(res))

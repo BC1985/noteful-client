@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddNote.css";
+import config from "../../config";
 
 export default class AddNote extends Component {
   static defaultProps = {
@@ -37,7 +38,7 @@ export default class AddNote extends Component {
       content: this.state.content,
       folder_id: parseInt(this.state.folder_id)
     };
-    fetch("http://localhost:8000/api/notes", {
+    fetch(`${config.API_ENDPOINT}/notes`, {
       method: "POST",
       body: JSON.stringify(newNote),
       headers: {

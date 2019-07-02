@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 // import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import config from "../../config";
 import "./Note.css";
 
 export default class Note extends React.Component {
@@ -16,7 +16,7 @@ export default class Note extends React.Component {
   deleteNote = e => {
     let id = this.props.id;
     e.preventDefault();
-    fetch(`http://localhost:8000/api/notes/${id}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${id}`, {
       method: "DELETE"
     })
       .then(id => this.props.deleteNote(id))
