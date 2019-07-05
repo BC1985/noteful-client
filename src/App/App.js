@@ -71,9 +71,8 @@ class App extends Component {
     const { notes, folders } = this.state;
     return (
       <>
-        {["/", "/folder/:folderId"].map(path => (
+        {["/", "/folder/:folderId", "/note/:noteId", "add-note"].map(path => (
           <Route
-            exact
             key={path}
             path={path}
             render={routeProps => (
@@ -86,33 +85,18 @@ class App extends Component {
             )}
           />
         ))}
-        <Route
-          path="/note/:noteId"
-          render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId) || {};
-            const folder = findFolder(folders, note.folderId);
-            return (
-              <NotePageNav
-                {...routeProps}
-                folder={folder}
-                render={routeProps => (
-                  <NoteListNav
-                    folders={folders}
-                    notes={notes}
-                    {...routeProps}
-                    deleteNote={this.deleteNote}
-                  />
-                )}
-              />
-            );
-          }}
-        />
+      </>
+    );
+  }
 
-        <Route
-          path="/add-note"
-          component={NotePageNav}
-          addNote={this.addNote}
+  renderNavBar() {
+    const { notes, folders } = this.state;
+    return (
+      <>
+        <NoteListNav
+          folders={folders}
+          notes={notes}
+          deleteNote={this.deleteNote}
         />
       </>
     );
@@ -180,6 +164,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {/* <div>{this.renderNavBar()}</div> */}
         <nav className="App__nav">{this.renderNavRoutes()}</nav>
         <header className="App__header">
           <h1>
