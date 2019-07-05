@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 // import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import config from "../../config";
+import config from "../config";
 import "./Note.css";
 
 export default class Note extends React.Component {
@@ -19,7 +19,7 @@ export default class Note extends React.Component {
     fetch(`${config.API_ENDPOINT}/notes/${id}`, {
       method: "DELETE"
     })
-      .then(id => this.props.deleteNote(id))
+      .then(() => this.props.deleteNote(id))
       .catch(error => console.error(error))
       .then(
         this.setState({

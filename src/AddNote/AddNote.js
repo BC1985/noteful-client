@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddNote.css";
-import config from "../../config";
+import config from "../config";
 
 export default class AddNote extends Component {
   static defaultProps = {

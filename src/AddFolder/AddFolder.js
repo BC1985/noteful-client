@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import "./AddFolder.css";
-import config from "../../config";
+import config from "../config";
 
 export default class AddFolder extends Component {
   state = {
@@ -22,12 +22,12 @@ export default class AddFolder extends Component {
       headers: {
         "content-type": "application/json"
       }
-    }).then(this.props.history.goBack());
-
-    // .then(res => res.json())
-    // .then(folder => {
-    //   // addFolder(folder);
-    // });
+    })
+      .then(res => res.json())
+      .then(folder => {
+        this.props.addFolder(folder);
+        this.props.history.goBack();
+      });
   };
 
   render() {

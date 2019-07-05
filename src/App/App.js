@@ -10,7 +10,7 @@ import AddNote from "../AddNote/AddNote";
 // import dummyStore from '../dummy-store'
 import { getNotesForFolder, findNote, findFolder } from "../notes-helpers";
 import "./App.css";
-import config from "../../config";
+import config from "../config";
 
 class App extends Component {
   state = {
@@ -42,6 +42,7 @@ class App extends Component {
       );
   };
   deleteNote = id => {
+    console.log(id);
     this.setState({
       notes: this.state.notes.filter(n => n.id !== id)
     });
@@ -91,7 +92,20 @@ class App extends Component {
             const { noteId } = routeProps.match.params;
             const note = findNote(notes, noteId) || {};
             const folder = findFolder(folders, note.folderId);
-            return <NotePageNav {...routeProps} folder={folder} />;
+            return (
+              <NotePageNav
+                {...routeProps}
+                folder={folder}
+                render={routeProps => (
+                  <NoteListNav
+                    folders={folders}
+                    notes={notes}
+                    {...routeProps}
+                    deleteNote={this.deleteNote}
+                  />
+                )}
+              />
+            );
           }}
         />
 
@@ -143,8 +157,9 @@ class App extends Component {
         />
         <Route
           path="/add-folder"
-          component={AddFolder}
-          // addFolder={this.addFolder}
+          render={routeProps => {
+            return <AddFolder {...routeProps} addFolder={this.addFolder} />;
+          }}
         />
         <Route
           path="/add-note"
