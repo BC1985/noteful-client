@@ -51,17 +51,19 @@ export default class NoteListMain extends React.Component {
             Note
           </CircleButton>
         </div>
-        <div className="NoteListMain__button-container">
-          <CircleButton
-            type="button"
-            className="NoteListMain__delete-folder-button"
-            onClick={this.deleteFolder}
-          >
-            <FontAwesomeIcon icon="trash-alt" />
-            <br />
-            Delete folder
-          </CircleButton>
-        </div>
+        {this.props.history.location.pathname.includes("folders") && (
+          <div className="NoteListMain__button-container">
+            <CircleButton
+              type="button"
+              className="NoteListMain__delete-folder-button"
+              onClick={this.deleteFolder}
+            >
+              <FontAwesomeIcon icon="trash-alt" />
+              <br />
+              Delete folder
+            </CircleButton>
+          </div>
+        )}
       </section>
     );
   }
