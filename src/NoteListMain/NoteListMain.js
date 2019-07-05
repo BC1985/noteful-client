@@ -58,8 +58,6 @@ export default class NoteListMain extends React.Component {
               className="NoteListMain__delete-folder-button"
               onClick={this.deleteFolder}
             >
-              <FontAwesomeIcon icon="trash-alt" />
-              <br />
               Delete folder
             </CircleButton>
           </div>
