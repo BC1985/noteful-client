@@ -53,7 +53,8 @@ export default class AddNote extends Component {
   };
   render() {
     const { folders } = this.props;
-
+    const { folder_id, name, content } = this.state;
+    const isEnabled = folder_id && content.length > 0 && name.length > 0;
     return (
       <section className="AddNote">
         <h2>Create a note</h2>
@@ -79,7 +80,7 @@ export default class AddNote extends Component {
           <div className="field">
             <label htmlFor="note-folder-select">Folder</label>
             <select id="note-folder-select" onChange={this.handleFolderSelect}>
-              <option value={null}>...</option>
+              <option value={""}>...</option>
               {folders.map(folder => (
                 <option key={folder.folder_id} value={folder.folder_id}>
                   {folder.name}
@@ -88,7 +89,11 @@ export default class AddNote extends Component {
             </select>
           </div>
           <div className="buttons">
-            <button type="submit" onClick={this.handleSubmit}>
+            <button
+              type={!isEnabled ? "disabled" : "submit"}
+              disabled={!isEnabled}
+              onClick={this.handleSubmit}
+            >
               Add note
             </button>
           </div>
